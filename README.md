@@ -1,4 +1,4 @@
-# Pytorch-Contrast-Adaptive-Sharpening
+# Pytorch Contrast Adaptive Sharpening
 
 This repository is an unofficial PyTorch implementation of the [Contrast Adaptative Sharpening](https://github.com/GPUOpen-Effects/FidelityFX-CAS/tree/master) (CAS) featured in AMD's FidelityFX.
 It is designed to be the lightweight final step of bigger image processing pipelines, as it attenuates the blur typically introduced by image upscaling while minimizing artifacts.

@@ -8,6 +8,8 @@ Created on Sun Aug 27 19:30:28 2023
 import torch as th
 import torch.nn.functional as F
 
+EPSILON = 1e-6
+
 def min_(tensor_list):
     # return the element-wise min of the tensor list.
     x = th.stack(tensor_list)
@@ -47,6 +49,8 @@ def contrast_adaptive_sharpening(x, amount=0.8, better_diagonals=True):
     """
     assert len(x.size()) >= 2
     assert 0 <= amount <= 1
+    assert x.max() <= 1
+    assert x.min() >= 0
     
     x_padded = F.pad(x, pad=(1, 1, 1, 1))
     # each side gets padded with 1 pixel 
@@ -83,7 +87,7 @@ def contrast_adaptive_sharpening(x, amount=0.8, better_diagonals=True):
         mn = mn + mn2
     
     # Computing local weight
-    inv_mx = th.reciprocal(mx) # 1/mx
+    inv_mx = th.reciprocal(mx + EPSILON) # 1/mx
     
     if better_diagonals:
         amp = inv_mx * th.minimum(mn, (2 - mx))

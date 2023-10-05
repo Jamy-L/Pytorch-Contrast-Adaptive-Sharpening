@@ -47,7 +47,7 @@ def contrast_adaptive_sharpening(x, amount=0.8, better_diagonals=True):
         Processed stack of images.
 
     """
-    assert len(x.size()) >= 2
+    assert x.dim() >= 2
     assert 0 <= amount <= 1
     assert x.max() <= 1
     assert x.min() >= 0
